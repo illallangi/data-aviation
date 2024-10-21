@@ -58,4 +58,7 @@ class AviationConfig(AppConfig):
         ModelsManager().add_synchronize(
             name=__name__,
             synchronize=synchronize,
+            before=[
+                "illallangi.data.air_transport.apps",
+            ]
         )
