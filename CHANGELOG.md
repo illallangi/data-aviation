@@ -1,3 +1,9 @@
+## v0.1.3 (2024-10-21)
+
+### Fix
+
+- **synchronize**: set to run before air_transport
+
 ## v0.1.2 (2024-10-21)
 
 ### Fix
