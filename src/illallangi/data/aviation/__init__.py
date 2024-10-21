@@ -10,6 +10,7 @@ def installed_apps() -> list[str]:
         "illallangi.data.aviation",
     ]
 
+
 @djp.hookimpl
 def urlpatterns() -> list[URLPattern]:
     from illallangi.data.aviation import views

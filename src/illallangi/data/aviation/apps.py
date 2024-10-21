@@ -60,5 +60,5 @@ class AviationConfig(AppConfig):
             synchronize=synchronize,
             before=[
                 "illallangi.data.air_transport.apps",
-            ]
+            ],
         )
