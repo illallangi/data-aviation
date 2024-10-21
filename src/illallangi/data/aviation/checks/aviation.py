@@ -44,6 +44,6 @@ def check_aviation_settings(
                 ),
             )
             for key in REQUIRED_KEYS
-            if key not in settings.AVIATION
+            if key not in settings.AVIATION or not settings.AVIATION[key]
         ]
     return errors

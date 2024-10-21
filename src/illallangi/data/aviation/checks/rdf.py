@@ -49,6 +49,6 @@ def check_rdf_settings(
                 ),
             )
             for key in REQUIRED_KEYS
-            if key not in settings.RDF
+            if key not in settings.RDF or not settings.RDF[key]
         ]
     return errors
