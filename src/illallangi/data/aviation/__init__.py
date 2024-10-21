@@ -7,17 +7,8 @@ from illallangi.data.aviation import checks  # noqa: F401
 @djp.hookimpl
 def installed_apps() -> list[str]:
     return [
-        "django_htmx",
         "illallangi.data.aviation",
     ]
-
-
-@djp.hookimpl
-def middleware() -> list[str]:
-    return [
-        "django_htmx.middleware.HtmxMiddleware",
-    ]
-
 
 @djp.hookimpl
 def urlpatterns() -> list[URLPattern]:
