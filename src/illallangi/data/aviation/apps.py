@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from django.conf import settings
 
-from illallangi.django.home.models.models_manager import ModelsManager
+from illallangi.django.data.models.models_manager import ModelsManager
 from illallangi.rdf.adapters import AviationAdapter as RDFAdapter
 
 
