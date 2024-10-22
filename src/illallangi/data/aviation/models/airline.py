@@ -1,4 +1,5 @@
 from autoslug import AutoSlugField
+from colorfield.fields import ColorField
 from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
@@ -67,6 +68,15 @@ class Airline(
         max_length=255,
         null=True,
         verbose_name="Label",
+    )
+
+    # ip:dominantColor: Dominant Color
+    dominant_color = ColorField(
+        blank=False,
+        default="#000000",
+        help_text="Dominant Color",
+        null=False,
+        verbose_name="Dominant Color",
     )
 
     # Methods

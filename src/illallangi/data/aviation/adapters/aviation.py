@@ -35,6 +35,7 @@ class AviationAdapter(diffsync.Adapter):
                     label=obj.label,
                     icao=obj.icao,
                     alliance=None if obj.alliance is None else obj.alliance.name,
+                    dominant_color=obj.dominant_color,
                 ),
             )
 

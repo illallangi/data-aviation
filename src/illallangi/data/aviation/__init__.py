@@ -8,6 +8,7 @@ from illallangi.data.aviation import checks  # noqa: F401
 def installed_apps() -> list[str]:
     return [
         "illallangi.data.aviation",
+        "colorfield",
     ]
 
 
