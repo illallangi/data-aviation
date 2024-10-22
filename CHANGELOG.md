@@ -1,3 +1,10 @@
+## v0.2.0 (2024-10-22)
+
+### Feat
+
+- **airline**: added airline logo to airline_html
+- **airline**: added dominant color
+
 ## v0.1.3 (2024-10-21)
 
 ### Fix
