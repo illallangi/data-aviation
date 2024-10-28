@@ -1,8 +1,6 @@
 from autoslug import AutoSlugField
 from django.db import models
 from django.templatetags.static import static
-from django.urls import reverse
-from django_sqids import SqidsField
 
 
 class Alliance(
@@ -19,17 +17,13 @@ class Alliance(
         unique=True,
     )
 
-    sqid = SqidsField(
-        real_field_name="id",
-        min_length=6,
-    )
+    # Natural Keys
 
-    # Fields
-
-    name = models.CharField(  # noqa: DJ001
-        blank=True,
+    name = models.CharField(
+        blank=False,
         max_length=255,
-        null=True,
+        null=False,
+        unique=True,
     )
 
     # Methods
@@ -38,16 +32,6 @@ class Alliance(
         self,
     ) -> str:
         return self.name
-
-    def get_absolute_url(
-        self,
-    ) -> str:
-        return reverse(
-            "alliance_html",
-            kwargs={
-                "alliance_slug": self.slug,
-            },
-        )
 
     def get_logo_url(
         self,

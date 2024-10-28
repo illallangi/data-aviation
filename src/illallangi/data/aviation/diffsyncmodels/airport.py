@@ -3,19 +3,22 @@ import diffsync
 from illallangi.data.aviation.models import Airport as ModelAirport
 
 
-class Airport(diffsync.DiffSyncModel):
-    pk: int
-    iata: str
-
-    label: str | None
-    icao: str | None
-
+class Airport(
+    diffsync.DiffSyncModel,
+):
     _modelname = "Airport"
     _identifiers = ("iata",)
     _attributes = (
-        "label",
         "icao",
+        "label",
     )
+
+    pk: int
+
+    iata: str
+
+    icao: str | None
+    label: str | None
 
     @classmethod
     def create(

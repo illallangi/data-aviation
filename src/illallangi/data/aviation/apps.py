@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from django.conf import settings
-from django.db.models.signals import post_migrate
 
+from illallangi.django.data.signals import ready_for_models
 from illallangi.rdf.adapters import AviationAdapter as RDFAdapter
 
 
@@ -10,32 +10,32 @@ def add_model(
 ) -> None:
     from illallangi.django.data.models import Model, Synchronize
 
-    Model.objects.update_or_create(
+    Model.objects.create(
         description="Alliances of airlines working together to provide a seamless travel experience.",
         icon="aviation/alliances.jpg",
         model="illallangi.data.aviation.models.Alliance",
         plural="Alliances",
         singular="Alliance",
-        url="alliances_html",
+        url="alliance_list",
     )
-    Model.objects.update_or_create(
+    Model.objects.create(
         description="Connecting us to the world, turning dreams of distant places into reality and reminding us that the sky holds endless adventures.",
         icon="aviation/airlines.jpg",
         model="illallangi.data.aviation.models.Airline",
         plural="Airlines",
         singular="Airline",
-        url="airlines_html",
+        url="airline_list",
     )
-    Model.objects.update_or_create(
+    Model.objects.create(
         description="Gateways to endless possibilities, where every departure is the start of a new adventure and every arrival is a homecoming.",
         icon="aviation/airports.jpg",
         model="illallangi.data.aviation.models.Airport",
         plural="Airports",
         singular="Airport",
-        url="airports_html",
+        url="airport_list",
     )
 
-    Synchronize.objects.update_or_create(
+    Synchronize.objects.create(
         callable="illallangi.data.aviation.apps.synchronize",
     )
 
@@ -47,9 +47,8 @@ class AviationConfig(AppConfig):
     def ready(
         self,
     ) -> None:
-        post_migrate.connect(
+        ready_for_models.connect(
             add_model,
-            sender=self,
         )
 
 

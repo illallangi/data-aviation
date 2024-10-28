@@ -18,33 +18,38 @@ def urlpatterns() -> list[URLPattern]:
 
     return [
         re_path(
-            r"^airlines/$",
-            views.airlines_html,
-            name="airlines_html",
+            r"^alliances/(?P<alliance__slug>[\w\d-]+)/airlines/$",
+            views.airline_list,
+            name="airline_list",
         ),
         re_path(
-            r"^airlines/(?P<airline_slug>[\w\d-]+)/$",
-            views.airline_html,
-            name="airline_html",
+            r"^airlines/$",
+            views.airline_list,
+            name="airline_list",
+        ),
+        re_path(
+            r"^airlines/(?P<slug>[\w\d-]+)/$",
+            views.airline_detail,
+            name="airline_detail",
         ),
         re_path(
             r"^airports/$",
-            views.airports_html,
-            name="airports_html",
+            views.airport_list,
+            name="airport_list",
         ),
         re_path(
-            r"^airports/(?P<airport_slug>[\w\d-]+)/$",
-            views.airport_html,
-            name="airport_html",
+            r"^airports/(?P<slug>[\w\d-]+)/$",
+            views.airport_detail,
+            name="airport_detail",
         ),
         re_path(
             r"^alliances/$",
-            views.alliances_html,
-            name="alliances_html",
+            views.alliance_list,
+            name="alliance_list",
         ),
         re_path(
-            r"^alliances/(?P<alliance_slug>[\w\d-]+)/$",
-            views.alliance_html,
-            name="alliance_html",
+            r"^alliances/(?P<slug>[\w\d-]+)/$",
+            views.alliance_detail,
+            name="alliance_detail",
         ),
     ]

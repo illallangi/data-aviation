@@ -24,9 +24,6 @@ class AviationAdapter(diffsync.Adapter):
     def load(
         self,
     ) -> None:
-        if self.count() > 0:
-            return
-
         for obj in DjangoAirline.objects.all():
             self.add(
                 Airline(
@@ -34,7 +31,7 @@ class AviationAdapter(diffsync.Adapter):
                     iata=obj.iata,
                     label=obj.label,
                     icao=obj.icao,
-                    alliance=None if obj.alliance is None else obj.alliance.name,
+                    alliance__name=None if obj.alliance is None else obj.alliance.name,
                     dominant_color=obj.dominant_color,
                 ),
             )

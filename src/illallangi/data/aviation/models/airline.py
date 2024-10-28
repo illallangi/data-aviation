@@ -2,8 +2,6 @@ from autoslug import AutoSlugField
 from colorfield.fields import ColorField
 from django.db import models
 from django.templatetags.static import static
-from django.urls import reverse
-from django_sqids import SqidsField
 
 
 class Airline(
@@ -18,11 +16,6 @@ class Airline(
     slug = AutoSlugField(
         populate_from="get_slug",
         unique=True,
-    )
-
-    sqid = SqidsField(
-        real_field_name="id",
-        min_length=6,
     )
 
     # Natural Keys
@@ -43,12 +36,20 @@ class Airline(
     # P114: airline alliance
     # ip:memberOfAirlineAlliance: Member Of Airline Alliance
     alliance = models.ForeignKey(
-        "Alliance",
         blank=True,
         help_text="alliance the airline belongs to",
         null=True,
         on_delete=models.SET_NULL,
+        to="Alliance",
         verbose_name="airline alliance",
+    )
+
+    # ip:dominantColor: Dominant Color
+    dominant_color = ColorField(
+        blank=True,
+        help_text="Dominant Color",
+        null=True,
+        verbose_name="Dominant Color",
     )
 
     # ip:airlineIcaoCode: Airline ICAO Code
@@ -70,15 +71,6 @@ class Airline(
         verbose_name="Label",
     )
 
-    # ip:dominantColor: Dominant Color
-    dominant_color = ColorField(
-        blank=False,
-        default="#000000",
-        help_text="Dominant Color",
-        null=False,
-        verbose_name="Dominant Color",
-    )
-
     # Methods
 
     def __str__(
@@ -87,16 +79,6 @@ class Airline(
         if self.label:
             return self.label
         return self.iata
-
-    def get_absolute_url(
-        self,
-    ) -> str:
-        return reverse(
-            "airline_html",
-            kwargs={
-                "airline_slug": self.slug,
-            },
-        )
 
     def get_logo_url(
         self,

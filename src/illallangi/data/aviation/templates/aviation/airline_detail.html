@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    {# djlint:off #}
+<style>
+    body {
+        background-color: {{ obj.dominant_color }};
+    }
+    
+    .airline-logo {
+        max-height: 100px;
+    }
+</style>
+    {# djlint:on #}
+{% endblock style %}
+{% block content %}
+    <h2>{{ obj }}</h2>
+    {% if obj.description %}
+        <p>
+            <em>{{ obj.description }}</em>
+        </p>
+    {% endif %}
+    {% if obj.get_logo_url %}
+        <div class="text-center">
+            <img src="{{ obj.get_logo_url }}"
+                 alt="{{ obj }}"
+                 class="img-fluid airline-logo">
+        </div>
+    {% endif %}
+    <table class="table table-hover table-sm">
+        <tbody>
+            <tr>
+                <th scope="row">IATA</th>
+                <td>
+                    {% if obj.iata %}
+                        {{ obj.iata }}
+                    {% else %}
+                        <em>Unknown</em>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">ICAO</th>
+                <td>
+                    {% if obj.icao %}
+                        {{ obj.icao }}
+                    {% else %}
+                        <em>Unknown</em>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr {% if obj.alliance %}role="button" data-href="{% url 'alliance_detail' obj.alliance.slug %}"{% endif %}>
+                <th scope="row">Alliance</th>
+                <td>
+                    {% if obj.alliance %}
+                        {{ obj.alliance }}
+                    {% else %}
+                        None
+                    {% endif %}
+                </td>
+            </tr>
+            {% for related in related_objects %}
+                <tr role="button" data-href="{{ related.href }}">
+                    <th scope="row">{{ related.title }}</th>
+                    <td>{{ related.count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

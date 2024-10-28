@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    {# djlint:off #}
+<style>
+    .alliance-logo {
+        max-height: 100px;
+    }
+</style>
+    {# djlint:on #}
+{% endblock style %}
+{% block content %}
+    <h2>{{ obj }}</h2>
+    {% if obj.description %}
+        <p>
+            <em>{{ obj.description }}</em>
+        </p>
+    {% endif %}
+    {% if obj.get_logo_url %}
+        <div class="text-center">
+            <img src="{{ obj.get_logo_url }}"
+                 alt="{{ obj }}"
+                 class="img-fluid alliance-logo">
+        </div>
+    {% endif %}
+    <table class="table table-hover table-sm">
+        <tbody>
+            {% for related in related_objects %}
+                <tr role="button" data-href="{{ related.href }}">
+                    <th scope="row">{{ related.title }}</th>
+                    <td>{{ related.count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

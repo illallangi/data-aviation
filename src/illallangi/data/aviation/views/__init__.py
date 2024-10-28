@@ -1,12 +1,15 @@
-from illallangi.data.aviation.views.airline import airline_html, airlines_html
-from illallangi.data.aviation.views.airport import airport_html, airports_html
-from illallangi.data.aviation.views.alliance import alliance_html, alliances_html
+from illallangi.data.aviation.views.airline_detail import airline_detail
+from illallangi.data.aviation.views.airline_list import airline_list
+from illallangi.data.aviation.views.airport_detail import airport_detail
+from illallangi.data.aviation.views.airport_list import airport_list
+from illallangi.data.aviation.views.alliance_detail import alliance_detail
+from illallangi.data.aviation.views.alliance_list import alliance_list
 
 __all__ = [
-    "airline_html",
-    "airlines_html",
-    "airport_html",
-    "airports_html",
-    "alliance_html",
-    "alliances_html",
+    "airline_detail",
+    "airline_list",
+    "airport_detail",
+    "airport_list",
+    "alliance_detail",
+    "alliance_list",
 ]

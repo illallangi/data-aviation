@@ -4,23 +4,26 @@ from illallangi.data.aviation.models import Airline as ModelAirline
 from illallangi.data.aviation.models import Alliance
 
 
-class Airline(diffsync.DiffSyncModel):
-    pk: int
-    iata: str
-
-    label: str | None
-    icao: str | None
-    alliance: str | None
-    dominant_color: str | None
-
+class Airline(
+    diffsync.DiffSyncModel,
+):
     _modelname = "Airline"
     _identifiers = ("iata",)
     _attributes = (
-        "label",
-        "icao",
-        "alliance",
+        "alliance__name",
         "dominant_color",
+        "icao",
+        "label",
     )
+
+    pk: int
+
+    iata: str
+
+    alliance__name: str | None
+    dominant_color: str | None
+    icao: str | None
+    label: str | None
 
     @classmethod
     def create(
@@ -30,8 +33,8 @@ class Airline(diffsync.DiffSyncModel):
         attrs: dict,
     ) -> "Airline":
         alliance = (
-            Alliance.objects.get_or_create(name=attrs["alliance"])[0]
-            if "alliance" in attrs and attrs["alliance"] is not None
+            Alliance.objects.get_or_create(name=attrs["alliance__name"])[0]
+            if "alliance__name" in attrs and attrs["alliance__name"] is not None
             else None
         )
 
@@ -59,8 +62,8 @@ class Airline(diffsync.DiffSyncModel):
         attrs: dict,
     ) -> "Airline":
         alliance = (
-            Alliance.objects.get_or_create(name=attrs["alliance"])[0]
-            if "alliance" in attrs and attrs["alliance"] is not None
+            Alliance.objects.get_or_create(name=attrs["alliance__name"])[0]
+            if "alliance__name" in attrs and attrs["alliance__name"] is not None
             else None
         )
 
@@ -68,7 +71,7 @@ class Airline(diffsync.DiffSyncModel):
             pk=self.pk,
         ).update(
             **{
-                **attrs,
+                **{k: v for k, v in attrs.items() if k not in ["alliance__name"]},
                 "alliance": alliance,
             },
         )

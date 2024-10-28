@@ -1,4 +1,5 @@
 {% extends "table.html" %}
+{% load static %}
 {% block table %}
     <h2>Alliances</h2>
     <table class="table table-hover table-sm">
@@ -9,7 +10,7 @@
         </thead>
         <tbody>
             {% for obj in page.object_list %}
-                <tr role="button" data-href="{{ obj.get_absolute_url }}">
+                <tr role="button" data-href="{% url 'alliance_detail' obj.slug %}">
                     <td>
                         {% if obj.name %}
                             {{ obj.name }}

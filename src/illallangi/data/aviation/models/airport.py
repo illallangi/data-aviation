@@ -1,8 +1,5 @@
 from autoslug import AutoSlugField
 from django.db import models
-from django.templatetags.static import static
-from django.urls import reverse
-from django_sqids import SqidsField
 
 
 class Airport(
@@ -17,11 +14,6 @@ class Airport(
     slug = AutoSlugField(
         populate_from="get_slug",
         unique=True,
-    )
-
-    sqid = SqidsField(
-        real_field_name="id",
-        min_length=6,
     )
 
     # Natural Keys
@@ -66,21 +58,6 @@ class Airport(
         if self.label:
             return self.label
         return self.iata
-
-    def get_absolute_url(
-        self,
-    ) -> str:
-        return reverse(
-            "airport_html",
-            kwargs={
-                "airport_slug": self.slug,
-            },
-        )
-
-    def get_logo_url(
-        self,
-    ) -> str:
-        return static(f"aviation/airport_logos/{self.slug}.png")
 
     def get_slug(
         self,

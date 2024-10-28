@@ -4,48 +4,56 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_GET
 
-from illallangi.data.aviation.models import Alliance
+from illallangi.data.aviation.models import Airport
 
 
 @require_GET
-def alliances_html(
+def airport_list(
     request: HttpRequest,
-    **_: dict,
 ) -> render:
-    objects = Alliance.objects.all()
+    objects = Airport.objects.all()
+    breadcrumbs = []
+
+    if not False:
+        breadcrumbs.append(
+            {
+                "title": "Airports",
+                "url": reverse(
+                    "airport_list",
+                ),
+            },
+        )
 
     if objects.count() == 1:
         return redirect(
-            objects.first().get_absolute_url(),
+            reverse(
+                "airport_detail",
+                kwargs={
+                    "slug": objects.first().slug,
+                },
+            ),
         )
 
     return render(
         request,
-        "aviation/alliances.html",
+        "aviation/airport_list.html",
         {
             "base_template": ("partial.html" if request.htmx else "base.html"),
             "page": Paginator(
-                object_list=objects.order_by("name"),
+                object_list=objects.order_by(
+                    "label",
+                ),
                 per_page=10,
             ).get_page(
                 request.GET.get("page", 1),
             ),
-            "breadcrumbs": [
-                {
-                    "title": "Alliances",
-                    "url": reverse(
-                        "alliances_html",
-                    ),
-                },
-            ],
+            "breadcrumbs": breadcrumbs,
             "links": [
                 {
                     "rel": "alternate",
                     "type": "text/html",
                     "href": request.build_absolute_uri(
-                        reverse(
-                            "alliances_html",
-                        ),
+                        request.get_full_path(),
                     ),
                 },
             ],
